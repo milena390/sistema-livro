@@ -2,7 +2,7 @@
 session_start();
 
 // Caminho para o arquivo JSON
-define('JSON_FILE', 'livros.json');
+define('JSON_FILE', '../app/config/livros.json');
 
 // Função para ler os dados do arquivo JSON
 function lerLivros() {

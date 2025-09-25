@@ -1,6 +1,6 @@
 <?php
 require_once 'Usuario.php';
-require_once '../config/Database.php';
+require_once '../app/config/Database.php';
 
 class UsuarioDAO {
     private PDO $conn;

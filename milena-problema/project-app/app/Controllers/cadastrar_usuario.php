@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require_once '../models/UsuarioDAO.php';
-require_once '../utils/Sanitizacao.php';
+require_once '../app/models/UsuarioDAO.php';
+require_once '../app/utils/Sanitizacao.php';
 
 $nome = Sanitizacao::sanitizar($_POST['nome']);
 $email = Sanitizacao::sanitizar($_POST['email']);
