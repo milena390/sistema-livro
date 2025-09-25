@@ -1,11 +1,11 @@
 <?php 
 $title = 'Home - Sistema de Usuários'; 
 $page = 'home';
-$basePath = '/aulas/repo-pw3/milena-problema/project-app/public';
+$basePath = '/sistema-livro/milena-problema/project-app/public';
 ?>
 <div class="container">
         <!-- Logotipo -->
-        <img src="../outros/livro.jpg" alt="Logo da Biblioteca PJ" class="logo">
+        <img src="img/livro.jpg" alt="Logo da Biblioteca PJ" class="logo">
 
         <h1>Bem-vindo à biblioteca PM!</h1>
         <p>Faça seu login ou cadastro para explorar nosso mundo literário</p>

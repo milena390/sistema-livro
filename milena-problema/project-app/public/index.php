@@ -16,7 +16,7 @@ use App\Controllers\UserController;
 $fullUri = $_SERVER['REQUEST_URI'];
 
 // Definir o path base da sua aplicação
-$basePath = '/aulas/repo-pw3/milena-problema/project-app/public';
+$basePath = '/sistema-livro/milena-problema/project-app/public';
 
 // Remover o path base da URI
 $uri = $fullUri;
