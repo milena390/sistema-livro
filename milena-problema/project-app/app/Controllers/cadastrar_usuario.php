@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once '../app/models/UsuarioDAO.php';
+require_once '../app/Models/UsuarioDAO.php';
 require_once '../app/utils/Sanitizacao.php';
 
 $nome = Sanitizacao::sanitizar($_POST['nome']);
