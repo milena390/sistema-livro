@@ -10,7 +10,7 @@ spl_autoload_register(function ($class) {
     // Mapeamento de namespaces para diretórios
     $prefixes = [
         'App\\' => __DIR__ . '/../app/',
-        'Config\\' => __DIR__ . '/../config/'
+        'Config\\' => __DIR__ . '/../app/config/'
     ];
 
     // Verificar cada prefixo
