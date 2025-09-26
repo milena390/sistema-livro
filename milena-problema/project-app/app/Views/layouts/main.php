@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Biblioteca PM</title>
     <style>
         /* Paleta aconchegante em cinza e bege */
@@ -108,7 +108,7 @@
 </head>
 <body>
     <div class="container mt-4">
-        <?php echo $content ?? ''; ?>
+        <?= isset($content) ? $content : '' ?>
     </div>
 </body>
 </html>

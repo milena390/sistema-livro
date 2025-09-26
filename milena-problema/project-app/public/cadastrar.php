@@ -1,8 +1,11 @@
+<?php 
+$basePath = '/sistema-livro/milena-problema/project-app/public'; 
+?>
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Cadastrar Usuário</title>
     <style>
     /* Paleta aconchegante em bege e cinza */
@@ -121,22 +124,22 @@
 <body>
     <div class="container">
         <h2>Cadastro de Usuário</h2>
-        <form action="../app/Controllers/cadastrar_usuario.php" method="POST">
+        <form action="<?= $basePath ?>/app/Controllers/cadastrar_usuario.php" method="POST">
             <label>Nome Completo:</label><br>
-            <input type="text" name="nome" required><br>
+            <input type="text" name="nome" required /><br>
 
             <label>Email:</label><br>
-            <input type="email" name="email" required><br>
+            <input type="email" name="email" required /><br>
 
             <label>Senha:</label><br>
-            <input type="password" name="senha" required><br>
+            <input type="password" name="senha" required /><br>
 
             <button type="submit">Cadastrar</button>
         </form>
 
         <!-- Botão para redirecionar para a tela inicial -->
         <div class="redirect-button">
-            <form action="index.php" method="get">
+            <form action="<?= $basePath ?>/index.php" method="get">
                 <button type="submit">Voltar à Página Inicial</button>
             </form>
         </div>

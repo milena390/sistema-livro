@@ -20,25 +20,28 @@ class BaseController
     {
         // Extrair dados para variáveis
         extract($data);
-        
+
         // Caminho da view
         $viewPath = __DIR__ . '/../Views/pages/' . $view . '.php';
         $layoutPath = __DIR__ . '/../Views/layouts/main.php';
-        
+
         // Verificar se a view existe
         if (file_exists($viewPath)) {
+            // Definir cabeçalho para UTF-8
+            header('Content-Type: text/html; charset=utf-8');
+
             // Iniciar buffer de saída
             ob_start();
             include $viewPath;
             $content = ob_get_clean();
-            
-            // Incluir o layout principal
+
+            // Incluir o layout principal (que usará $content)
             include $layoutPath;
         } else {
             die("View não encontrada: " . $viewPath);
         }
     }
-    
+
     /**
      * Redireciona para uma URL
      * @param string $url URL de destino
@@ -49,7 +52,7 @@ class BaseController
         header("Location: " . $url);
         exit();
     }
-    
+
     /**
      * Método público para renderizar (para uso temporário)
      * @param string $view Nome da view
@@ -61,4 +64,3 @@ class BaseController
         $this->render($view, $data);
     }
 }
-?>

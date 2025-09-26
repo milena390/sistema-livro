@@ -1,44 +1,62 @@
 <?php
-require_once 'Usuario.php';
-require_once __DIR__ . '/../app/config/Database.php';
+declare(strict_types=1);
 
+namespace App\Models;
 
-class UsuarioDAO {
+require_once __DIR__ . '/Usuario.php';
+require_once __DIR__ . '/../config/Database.php';
+
+use App\Config\Database;
+use PDO;
+
+class UsuarioDAO
+{
     private PDO $conn;
 
-    public function __construct() {
+    public function __construct()
+    {
         $db = new Database();
         $this->conn = $db->getConnection();
     }
 
-    // Busca um usuário pelo  email
-    public function buscarPorEmail( string $email): ?array {
-        $query = "SELECT * FROM usuario WHERE  email = :email";
+    // Busca um usuário pelo email e retorna um objeto Usuario ou null
+    public function buscarPorEmail(string $email): ?Usuario
+    {
+        $query = "SELECT * FROM usuario WHERE email = :email";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $resultado ?: null;
+            if ($resultado) {
+                return new Usuario($resultado);
+            }
         }
 
         return null;
     }
 
-    // Valida o login verificando email e senha
-    public function validarLogin( string $email, string $senha): ?Usuario {
-        $usuarioData = $this->buscarPorEmail($email);
+    // Valida login verificando email e senha, retorna objeto Usuario ou null
+    public function validarLogin(string $email, string $senha): ?Usuario
+    {
+        $usuario = $this->buscarPorEmail($email);
 
-        if ($usuarioData && password_verify($senha, $usuarioData['senha_hash'])) {
-            return new Usuario($usuarioData);
+        if ($usuario && $usuario->verificarSenha($senha)) {
+            return $usuario;
         }
 
         return null;
     }
 
-    // Cria um novo usuário no banco de dados
-    public function criarUsuario(string $nome, string $email, string $senha): bool {
-        $query = "INSERT INTO login.usuario (nome, email, senha_hash) VALUES (:nome, :email, :senha)";
+    // Cria novo usuário no banco, retorna true se sucesso
+    public function criarUsuario(string $nome, string $email, string $senha): bool
+    {
+        // Verifica se email já existe para evitar duplicidade
+        if ($this->buscarPorEmail($email) !== null) {
+            return false; // usuário já existe
+        }
+
+        $query = "INSERT INTO usuario (nome, email, senha_hash) VALUES (:nome, :email, :senha)";
         $stmt = $this->conn->prepare($query);
 
         $senhaHash = password_hash($senha, PASSWORD_DEFAULT);

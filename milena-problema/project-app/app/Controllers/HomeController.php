@@ -7,6 +7,9 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+// Se quiser, pode importar explicitamente
+use App\Controllers\BaseController;
+
 class HomeController extends BaseController 
 {
     /**
@@ -18,4 +21,3 @@ class HomeController extends BaseController
         $this->render('home');
     }
 }
-?>

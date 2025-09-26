@@ -1,87 +1,69 @@
 <?php
-/**
- * Ponto de entrada da aplicação - Versão com Autoloader
- */
-
 declare(strict_types=1);
 
-// Incluir o autoloader
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Controllers\HomeController;
 use App\Controllers\AuthController;
 use App\Controllers\UserController;
 
-// Obter a URI completa
-$fullUri = $_SERVER['REQUEST_URI'];
-
-// Definir o path base da sua aplicação
 $basePath = '/sistema-livro/milena-problema/project-app/public';
 
-// Remover o path base da URI
+// Obtém a URI da requisição, limpa query strings e o path base
+$fullUri = $_SERVER['REQUEST_URI'] ?? '/';
 $uri = $fullUri;
+
+// Remove a query string
+if (($pos = strpos($uri, '?')) !== false) {
+    $uri = substr($uri, 0, $pos);
+}
+
+// Remove o basePath do começo da URI, se existir
 if (strpos($uri, $basePath) === 0) {
     $uri = substr($uri, strlen($basePath));
 }
 
-// Se ficar vazio, redirecionar para home
-if ($uri === '' || $uri === '/') {
-    $uri = '/';
-}
+// Normaliza barra inicial e espaços
+$uri = '/' . ltrim(trim($uri), '/');
 
-// Remover parâmetros da query string
-if (strpos($uri, '?') !== false) {
-    $uri = substr($uri, 0, strpos($uri, '?'));
-}
+// Rotas
+switch (true) {
+    case $uri === '/' || $uri === '':
+        (new HomeController())->index();
+        break;
 
-// Definir rotas
-switch ($uri) {
-    case '/':
-    case '':
-        $controller = new HomeController();
-        $controller->index();
+    case $uri === '/login':
+        (new AuthController())->showLogin();
         break;
-        
-    case '/login':
-        $controller = new AuthController();
-        $controller->showLogin();
+
+    case $uri === '/auth/login':
+        (new AuthController())->login();
         break;
-        
-    case '/auth/login':
-        $controller = new AuthController();
-        $controller->login();
+
+    case $uri === '/auth/logout':
+        (new AuthController())->logout();
         break;
-        
-    case '/auth/logout':
-        $controller = new AuthController();
-        $controller->logout();
+
+    case $uri === '/users':
+        (new UserController())->index();
         break;
-        
-    case '/users':
-        $controller = new UserController();
-        $controller->index();
+
+    case $uri === '/users/create':
+        (new UserController())->create();
         break;
-        
-    case '/users/create':
-        $controller = new UserController();
-        $controller->create();
+
+    case preg_match('#^/users/edit/(\d+)$#', $uri, $matches):
+        (new UserController())->edit((int)$matches[1]);
         break;
-        
-    case (preg_match('/\/users\/edit\/(\d+)/', $uri, $matches) ? true : false):
-        $controller = new UserController();
-        $controller->edit((int)$matches[1]);
+
+    case $uri === '/users/save':
+        (new UserController())->save();
         break;
-        
-    case '/users/save':
-        $controller = new UserController();
-        $controller->save();
+
+    case preg_match('#^/users/delete/(\d+)$#', $uri, $matches):
+        (new UserController())->delete((int)$matches[1]);
         break;
-        
-    case (preg_match('/\/users\/delete\/(\d+)/', $uri, $matches) ? true : false):
-        $controller = new UserController();
-        $controller->delete((int)$matches[1]);
-        break;
-        
+
     default:
         http_response_code(404);
         echo "<div class='container mt-4'><h1>404 - Página não encontrada</h1>";
@@ -89,4 +71,3 @@ switch ($uri) {
         echo "<a href='{$basePath}/' class='btn btn-primary'>Voltar para Home</a></div>";
         break;
 }
-?>

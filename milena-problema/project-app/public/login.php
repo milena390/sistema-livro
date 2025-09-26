@@ -1,27 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Login</title>
     <style>
-    /* Paleta aconchegante em bege e cinza */
+    /* Seu CSS aconchegante (pode copiar do seu exemplo) */
     :root {
-        --bg: #F5F1E8;          /* fundo bege claro */
-        --card: #FAF7F0;        /* cartão ligeiramente mais claro */
-        --text: #4E4A46;        /* cinza quente escuro */
-        --muted: #6B655E;       /* cinza médio para subtítulos */
-        --border: #D2C6B8;      /* bege acinzentado */
-        --btn: #EDE3D4;         /* bege do botão */
-        --btn-hover: #D9CBB8;   /* bege mais escuro no hover */
+        --bg: #F5F1E8;
+        --card: #FAF7F0;
+        --text: #4E4A46;
+        --muted: #6B655E;
+        --border: #D2C6B8;
+        --btn: #EDE3D4;
+        --btn-hover: #D9CBB8;
         --shadow: rgba(34, 30, 24, 0.12);
         --shadow-strong: rgba(34, 30, 24, 0.18);
     }
-
-    * {
-        box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
         margin: 0;
         background-color: var(--bg);
@@ -30,7 +26,6 @@
         text-align: center;
         line-height: 1.5;
     }
-
     .container {
         margin: 56px auto;
         max-width: 400px;
@@ -40,14 +35,12 @@
         padding: 32px 28px;
         box-shadow: 0 8px 24px var(--shadow);
     }
-
     h2 {
         font-size: 28px;
         font-weight: bold;
         margin: 8px 0 18px;
         color: var(--text);
     }
-
     label {
         font-size: 18px;
         display: block;
@@ -55,7 +48,6 @@
         color: var(--muted);
         text-align: left;
     }
-
     input {
         width: 100%;
         padding: 12px;
@@ -66,12 +58,10 @@
         outline: none;
         transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
-
     input:focus {
         border-color: #CDBFAE;
         box-shadow: 0 0 6px rgba(205, 191, 174, 0.6);
     }
-
     button {
         background-color: var(--btn);
         border: 1px solid var(--border);
@@ -83,49 +73,46 @@
         box-shadow: 0 4px 12px var(--shadow);
         transition: background-color 0.2s ease, transform 0.05s ease, box-shadow 0.2s ease;
     }
-
     button:hover {
         background-color: var(--btn-hover);
         transform: translateY(-1px);
         box-shadow: 0 8px 18px var(--shadow-strong);
     }
-
     button:active {
         transform: translateY(0);
         box-shadow: 0 4px 10px var(--shadow);
     }
-
     button:focus {
         outline: 3px solid #CDBFAE;
         outline-offset: 2px;
     }
-
-    @media (max-width: 480px) {
-        .container {
-            margin: 24px 16px;
-            padding: 24px 18px;
-        }
-        h2 { font-size: 24px; }
-        button {
-            width: 100%;
-            max-width: 320px;
-        }
+    .error {
+        color: red;
+        font-weight: bold;
+        margin-bottom: 15px;
     }
-</style>
-
-
+    </style>
 </head>
 <body>
     <div class="container">
         <h2>Login</h2>
-        <form action="../app/Controllers/process_login.php" method="POST">
-            <label>Email:</label><br>
-            <input type="email" name="email" required><br>
 
-            <label>Senha:</label><br>
-            <input type="password" name="senha" required><br>
+        <?php
+        session_start();
+        if (isset($_SESSION['error'])) {
+            echo '<div class="error">'.htmlspecialchars($_SESSION['error']).'</div>';
+            unset($_SESSION['error']);
+        }
+        ?>
 
-            <button name="submit" type="submit">Entrar</button>
+        <form action="process_login.php" method="POST">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required />
+
+            <button type="submit" name="submit">Entrar</button>
         </form>
     </div>
 </body>
