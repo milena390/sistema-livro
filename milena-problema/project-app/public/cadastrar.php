@@ -139,7 +139,7 @@ $basePath = '/sistema-livro/milena-problema/project-app/public';
 
         <!-- Botão para redirecionar para a tela inicial -->
         <div class="redirect-button">
-            <form action="<?= $basePath ?>/index.php" method="get">
+            <form action="<?= $basePath ?>index.php" method="get">
                 <button type="submit">Voltar à Página Inicial</button>
             </form>
         </div>

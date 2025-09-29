@@ -105,7 +105,7 @@
         }
         ?>
 
-        <form action="process_login.php" method="POST">
+        <form action="../app/Controllers/process_login.php" method="POST">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required />
 
