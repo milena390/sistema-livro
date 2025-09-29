@@ -40,7 +40,7 @@ if (isset($_POST['adicionar'])) {
         $_SESSION['mensagem'] = "❌ Preencha todos os campos corretamente!";
     }
 
-    header("Location: indexl.php");
+    header("Location: indexL.php");
     exit;
 }
 
@@ -66,7 +66,7 @@ if (isset($_POST['editar'])) {
         $_SESSION['mensagem'] = "❌ Preencha todos os campos corretamente!";
     }
 
-    header("Location: indexl.php");
+    header("Location: indexL.php");
     exit;
 }
 
@@ -83,7 +83,7 @@ if (isset($_POST['excluir'])) {
         $_SESSION['mensagem'] = "❌ ID inválido para exclusão!";
     }
 
-    header("Location: indexl.php");
+    header("Location: indexL.php");
     exit;
 }
 
@@ -110,7 +110,7 @@ unset($_SESSION['mensagem']);
       <div class="mensagem"><?= htmlspecialchars($mensagem) ?></div>
     <?php endif; ?>
 
-    <form action="indexl.php" method="POST" autocomplete="off">
+    <form action="indexL.php" method="POST" autocomplete="off">
       <label for="titulo">Título:</label>
       <input type="text" name="titulo" id="titulo" required>
 
