@@ -3,10 +3,10 @@
 session_start();
 
 // Inclui o arquivo UsuarioDAO.php, que está no diretório Models (relativo ao diretório Controllers)
-require_once __DIR__ . '/../app/Models/UsuarioDAO.php'; // Corrigido caminho
+require_once __DIR__ . '/../Models/UsuarioDAO.php'; // Corrigido caminho
 
 // Inclui o arquivo Sanitizacao.php, que está no diretório utils (relativo ao diretório Controllers)
-require_once __DIR__ . '/../app/utils/Sanitizacao.php'; // Corrigido caminho
+require_once __DIR__ . '/../utils/Sanitizacao.php'; // Corrigido caminho
 
 // Verifica se os dados foram enviados
 if (!isset($_POST['nome'], $_POST['email'], $_POST['senha'])) {
