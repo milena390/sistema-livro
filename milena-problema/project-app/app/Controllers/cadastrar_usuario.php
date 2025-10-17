@@ -1,12 +1,11 @@
 <?php
-// Inicia a sessão para poder armazenar mensagens
 session_start();
 
-// Inclui o arquivo UsuarioDAO.php, que está no diretório Models (relativo ao diretório Controllers)
-require_once __DIR__ . '/../Models/UsuarioDAO.php'; // Corrigido caminho
+require_once __DIR__ . '/../Models/UsuarioDAO.php';
+require_once __DIR__ . '/../utils/Sanitizacao.php';
 
-// Inclui o arquivo Sanitizacao.php, que está no diretório utils (relativo ao diretório Controllers)
-require_once __DIR__ . '/../utils/Sanitizacao.php'; // Corrigido caminho
+// ✅ Usa o namespace correto
+use App\Models\UsuarioDAO;
 
 // Verifica se os dados foram enviados
 if (!isset($_POST['nome'], $_POST['email'], $_POST['senha'])) {
@@ -15,7 +14,7 @@ if (!isset($_POST['nome'], $_POST['email'], $_POST['senha'])) {
     exit();
 }
 
-// Sanitiza as entradas para evitar vulnerabilidades como XSS ou SQL Injection
+// Sanitiza entradas
 $nome = Sanitizacao::sanitizar($_POST['nome']);
 $email = Sanitizacao::sanitizar($_POST['email']);
 $senha = Sanitizacao::sanitizar($_POST['senha']);
@@ -27,20 +26,18 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit();
 }
 
-// Cria uma instância da classe UsuarioDAO
+// ✅ Agora o PHP sabe onde encontrar UsuarioDAO
 $usuarioDAO = new UsuarioDAO();
-
-// Chama o método para criar o usuário, passando os dados sanitizados
 $usuario = $usuarioDAO->criarUsuario($nome, $email, $senha);
 
-// Verifica se o usuário foi criado com sucesso e define a mensagem correspondente na sessão
+// Define mensagem
 if ($usuario) {
     $_SESSION['mensagem'] = "Usuário criado com sucesso! :)";
 } else {
     $_SESSION['mensagem'] = "Erro ao criar usuário :(. Esse email ou nome pode já estar sendo utilizado.";
 }
 
-// Redireciona o usuário para a página de cadastro
+// Redireciona
 header("Location: ../public/cadastrar.php");
 exit();
 ?>
