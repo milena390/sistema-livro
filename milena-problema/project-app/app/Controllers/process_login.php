@@ -1,9 +1,9 @@
 <?php
 session_start();
 
+// Inclui os arquivos necessários, com caminho correto
 require_once __DIR__ . '/../app/Models/UsuarioDAO.php';
 require_once __DIR__ . '/../app/utils/Sanitizacao.php';
-
 
 // Verifica se o formulário foi enviado via POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -18,18 +18,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    // Cria uma instância do UsuarioDAO e valida o login
     $usuarioDAO = new UsuarioDAO();
     $usuario = $usuarioDAO->validarLogin($email, $senha);
 
     if ($usuario) {
+        // Usuário autenticado com sucesso
         $_SESSION['logado'] = true;
         $_SESSION['usuario_id'] = $usuario->getId();
         $_SESSION['nome_usuario'] = $usuario->getNome();
 
-        // Redireciona para a página do cadastro de livros
+        // Redireciona para a página inicial (exemplo: cadastro de livros)
         header("Location: ../public/IndexL.php");
         exit;
     } else {
+        // Caso não encontre o usuário, exibe erro
         $_SESSION['erro_login'] = "Email ou senha inválidos.";
         header("Location: ../public/login.php");
         exit;

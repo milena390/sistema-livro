@@ -1,5 +1,5 @@
 <?php 
-$basePath = '/sistema-livro/milena-problema/project-app/'; 
+$basePath = '/sistema-livro/milena-problema/project-app/public/'; 
 ?>
 <!DOCTYPE html>
 <html lang="pt">
