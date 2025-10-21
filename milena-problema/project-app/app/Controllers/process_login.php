@@ -2,8 +2,8 @@
 session_start();
 
 // Inclui os arquivos necessários, com caminho correto
-require_once __DIR__ . '/../app/Models/UsuarioDAO.php';
-require_once __DIR__ . '/../app/utils/Sanitizacao.php';
+require_once __DIR__ . '/../Models/UsuarioDAO.php';
+require_once __DIR__ . '/../utils/Sanitizacao.php';
 
 // Verifica se o formulário foi enviado via POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
